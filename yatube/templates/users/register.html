@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+<head>    
+  {% block title %}
+    <title>Регистрация</title>
+  {% endblock %}
+</head>
+<body>
+  {% block content %}
+  <div class="container py-5">
+    <h1>Регистрация</h1>
+    <form method="post">{% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" style="background-color: crimson;">Зарегистрироваться</button>
+    </form>
+    <br /><a href="/"><button class="py-2 px-4 rounded" style="background-color: crimson;">На главную</button></a>
+  </div>
+  {% endblock %}
+</body>
