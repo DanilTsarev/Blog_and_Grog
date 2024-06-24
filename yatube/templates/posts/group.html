@@ -7,8 +7,16 @@
 <body>
   {% block content %}
     <main>
-      <div class="container py-5">     
-        <h1>Последние посты</h1>
+      <!-- класс py-5 создает отступы сверху и снизу блока -->
+      <div class="container py-5">
+        <h1>{{group}}</h1>
+        <b>Всего постов: {{ posts_count }}</b>
+        {% if user.is_authenticated %}
+          <a href="{% url 'posts:post_create' group.slug %}">
+            <button class="btn-sm rounded" style="background-color: crimson;">Создать пост в {{ group.slug }}</button>
+          </a>
+        {% endif %}
+        <hr>
         {% for post in posts %}
           <article class="rounded container py-3" style="background-color: gray">
             <b class="fs-4">
@@ -22,13 +30,11 @@
                 Дата публикации: {{ post.pub_date|date:"d E Y" }}
               </li>
             </ul>
-            {% if post.group %}
-              <a href="{% url 'posts:group' post.group.slug %}"><button class="btn-sm rounded" style="background-color: crimson;">Все посты в {{post.group.slug}}</button></a>
-            {% endif %}
           </article>
           {% if not forloop.last %}<hr>{% endif %}
         {% endfor %}
-      </div>  
+        <br /><a href="/"><button class="py-2 px-4 rounded" style="background-color: crimson;">На главную</button></a>
+      </div>
     </main>
-  {% endblock %}        
+  {% endblock %}
 </body>

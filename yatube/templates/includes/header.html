@@ -1,14 +1,27 @@
 {% load static %}
 <header>
-    <!-- Использованы классы бустрапа для создания типовой навигации с логотипом -->
+    <!-- Использованы классы bootstrap для создания типовой навигации с логотипом -->
     <!-- В дальнейшем тут будет создано полноценное меню -->
-    <nav class="navbar navbar-light" style="background-color: lightskyblue">
-      <div class="container">
-        <a class="navbar-brand" href="{% url 'posts:index' %}">
-          <img src="{% static 'img/logo.png' %}" width="30" height="30" class="d-inline-block align-top" alt="">
+    <nav class="navbar navbar-light" style="background-color: gray">
+      <div class="container-lg">
+        <a class="navbar-brand" href="{% url 'index' %}">
+          <img src="{% static 'img/logo.png' %}" width="40" height="40" class="d-inline-block align-top" alt="">
           <!-- тег span используется для добавления нужных стилей отдельным участкам текста -->
-          <span style="color:red">Ya</span>tube
+          <b class="fs-3"><span style="color:red">Ya</span>tube</b>
         </a>
+        <div>
+          {% if user.is_authenticated %}
+            <b>{{ user.username }}</b>
+            {% if user.is_staff %}
+              <a href="/admin"><button class="btn-sm rounded" style="background-color: crimson;">Администрирование</button></a>
+              <a href="/admin/posts/group/add/"><button class="btn-sm rounded" style="background-color: crimson;">Создать группу</button></a>
+            {% endif %}
+            <a href="/users/logout"><button class="btn-sm rounded" style="background-color: crimson;">Выйти</button></a>
+          {% else %}
+            <a href="/users/login"><button class="btn-sm rounded" style="background-color: crimson;">Авторизация</button></a>
+            <a href="/users/register"><button class="btn-sm rounded" style="background-color: crimson;">Регистрация</button></a>
+          {% endif %}
+        </div>
       </div>
     </nav>    
 </header>
